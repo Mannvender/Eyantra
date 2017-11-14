@@ -58,11 +58,39 @@ def main(path):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    image, contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
-    cv2.imshow('contoursRED', image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    print contours[0]
+    image, contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    for arr in contours:
+        bRect = cv2.boundingRect(contours[0])
+
+        centroidX = bRect.x + (bRect.width / 2);
+        centroidY = bRect.y + (bRect.height / 2);
+
+        print "%s, %s" % (centroidX, centroidY)
+
+    # cv2.imshow('contoursRED', image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+    for cnt in contours:
+        approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
+        print len(approx)
+        if len(approx) == 5:
+            print "pentagon"
+            cv2.drawContours(img, [cnt], 0, 255, -1)
+        elif len(approx) == 3:
+            print "triangle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 0), -1)
+        elif len(approx) == 4:
+            print "square"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 6:
+            print "hexagon"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 9:
+            print "half-circle"
+            cv2.drawContours(img, [cnt], 0, (255, 255, 0), -1)
+        elif len(approx) > 15:
+            print "circle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 255), -1)
     print "**************************************************************"
 
     # **************************************************
@@ -97,7 +125,27 @@ def main(path):
     cv2.imshow('contoursGREEN', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    print contours
+    for cnt in contours:
+        approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
+        print len(approx)
+        if len(approx) == 5:
+            print "pentagon"
+            cv2.drawContours(img, [cnt], 0, 255, -1)
+        elif len(approx) == 3:
+            print "triangle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 0), -1)
+        elif len(approx) == 4:
+            print "square"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 6:
+            print "hexagon"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 9:
+            print "half-circle"
+            cv2.drawContours(img, [cnt], 0, (255, 255, 0), -1)
+        elif len(approx) > 15:
+            print "circle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 255), -1)
     print "**************************************************************"
 
     # **************************************************
@@ -132,7 +180,27 @@ def main(path):
     cv2.imshow('contoursBLUE', image)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    print contours
+    for cnt in contours:
+        approx = cv2.approxPolyDP(cnt, 0.01 * cv2.arcLength(cnt, True), True)
+        print len(approx)
+        if len(approx) == 5:
+            print "pentagon"
+            cv2.drawContours(img, [cnt], 0, 255, -1)
+        elif len(approx) == 3:
+            print "triangle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 0), -1)
+        elif len(approx) == 4:
+            print "square"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 6:
+            print "hexagon"
+            cv2.drawContours(img, [cnt], 0, (0, 0, 255), -1)
+        elif len(approx) == 9:
+            print "half-circle"
+            cv2.drawContours(img, [cnt], 0, (255, 255, 0), -1)
+        elif len(approx) > 15:
+            print "circle"
+            cv2.drawContours(img, [cnt], 0, (0, 255, 255), -1)
     print "**************************************************************"
 
 
