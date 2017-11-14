@@ -24,10 +24,116 @@ def main(path):
     #####################################################################################################
     # Write your code here!!!
     #####################################################################################################
+    toReturn = []
+    toReturn.append(str(path)[2:])
+    print toReturn
     img = cv2.imread(path)
-    cv2.imshow('image', img)
-    px = img[100, 100]
-    print px
+    # cv2.imshow('image', img)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+    # **************************************************
+    red = np.uint8([[[0, 0, 255]]])
+    hsv_red = cv2.cvtColor(red, cv2.COLOR_BGR2HSV)
+    # print hsv_red
+    # define range of red color in HSV
+    lower_red = np.array([0, 255, 255])
+    upper_red = np.array([10, 255, 255])
+
+    # Threshold the HSV image to get only red colors
+    mask = cv2.inRange(hsv, lower_red, upper_red)
+
+    # Bitwise-AND mask and original image
+    res = cv2.bitwise_and(img, img, mask=mask)
+    # cv2.imshow('img', img)
+    # cv2.imshow('mask', mask)
+    # cv2.imshow('red', res)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    grey = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+
+    ret, thresh1 = cv2.threshold(grey, 127, 255, cv2.THRESH_OTSU)
+
+    cv2.imshow('thresRED', thresh1)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    image, contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    cv2.imshow('contoursRED', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print contours[0]
+    print "**************************************************************"
+
+    # **************************************************
+    green = np.uint8([[[0, 128, 0]]])
+    hsv_green = cv2.cvtColor(green, cv2.COLOR_BGR2HSV)
+    # print hsv_green
+    # define range of green color in HSV
+    lower_green = np.array([50, 255, 128])
+    upper_green = np.array([70, 255, 128])
+
+    # Threshold the HSV image to get only green colors
+    mask = cv2.inRange(hsv, lower_green, upper_green)
+
+    # Bitwise-AND mask and original image
+    res = cv2.bitwise_and(img, img, mask=mask)
+    # cv2.imshow('img', img)
+    # cv2.imshow('mask', mask)
+    # cv2.imshow('green', res)
+    #
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    grey = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+
+    ret, thresh1 = cv2.threshold(grey, 127, 255, cv2.THRESH_OTSU)
+
+    cv2.imshow('thresGREEN', thresh1)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    image, contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.imshow('contoursGREEN', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print contours
+    print "**************************************************************"
+
+    # **************************************************
+    blue = np.uint8([[[255, 0, 0]]])
+    hsv_blue = cv2.cvtColor(blue, cv2.COLOR_BGR2HSV)
+    # print hsv_blue
+    # define range of blue color in HSV
+    lower_blue = np.array([110, 255, 255])
+    upper_blue = np.array([130, 255, 255])
+
+    # Threshold the HSV image to get only blue colors
+    mask = cv2.inRange(hsv, lower_blue, upper_blue)
+
+    # Bitwise-AND mask and original image
+    res = cv2.bitwise_and(img, img, mask=mask)
+    # cv2.imshow('img', img)
+    # cv2.imshow('mask', mask)
+    # cv2.imshow('blue', res)
+
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    grey = cv2.cvtColor(res, cv2.COLOR_BGR2GRAY)
+
+    ret, thresh1 = cv2.threshold(grey, 127, 255, cv2.THRESH_OTSU)
+
+    cv2.imshow('thresBLUE', thresh1)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+    image, contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.imshow('contoursBLUE', image)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    print contours
+    print "**************************************************************"
 
 
 #################################################################################################
